@@ -52,15 +52,15 @@ jobs:
               shell: bash
               run: |
                   chmod +x gradlew
-                   ./gradlew build
+                   ./gradlew :aphrodite-backend:bootJar -x test
 
             - name: Initialize CodeQL
-              uses: github/codeql-action/init@v4
+              uses: github/codeql-action/init@7434149006143a4d75b82a2f411ef15b03ccc2d7 # v4.31.7
               with:
                   languages: ${{ matrix.language }}
                   build-mode: ${{ matrix.build-mode }}
 
             - name: Perform CodeQL Analysis
-              uses: github/codeql-action/analyze@v4
+              uses: github/codeql-action/analyze@7434149006143a4d75b82a2f411ef15b03ccc2d7 # v4.31.7
               with:
                   category: "/language:${{matrix.language}}"
