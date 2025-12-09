@@ -9,18 +9,22 @@ logging.captureStandardOutput(LogLevel.INFO)
 plugins {
     java
     application
+    idea
+    `maven-publish`
+
     id("org.springframework.boot") version "4.0.0"
     id("io.spring.dependency-management") version "1.1.7"
+    id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
+
     id("org.jetbrains.kotlin.jvm") version "2.3.0-RC3"
     id("org.jetbrains.kotlin.plugin.spring") version "2.3.0-RC3"
     id("org.jetbrains.kotlin.plugin.serialization") version "2.3.0-RC3"
-    idea
-    id("org.graalvm.buildtools.native") version "0.11.3"
     id("org.jetbrains.kotlin.plugin.jpa") version "2.3.0-RC3"
+
+    id("org.graalvm.buildtools.native") version "0.11.3"
+
     id("org.hibernate.orm") version "7.2.0.CR3"
     id("org.flywaydb.flyway") version "11.19.0"
-    id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
-    `maven-publish`
 }
 
 group = "com.arpanrec"
@@ -69,9 +73,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
     }
-    implementation("org.springframework.boot:spring-boot-starter-data-jdbc") {
-        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
-    }
 
     testImplementation("org.springframework.boot:spring-boot-starter-flyway-test") {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
@@ -85,6 +86,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator") {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
     }
+
     // Log4j2 org.springframework.boot:spring-boot-starter-log4j2 and module replacement not needed because it's
     // excluded from spring-boot-starter but still it's here for clarity
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
@@ -97,13 +99,13 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-api")
     implementation("org.apache.logging.log4j:log4j-core")
 
-// SLF4J bridge libraries for routing other logging frameworks to SLF4J
+    // SLF4J bridge libraries for routing other logging frameworks to SLF4J
     implementation("org.slf4j:jcl-over-slf4j") // Redirects Apache Commons Logging to SLF4J
     implementation("org.slf4j:jul-to-slf4j") // Redirects java.util.logging to SLF4J
     implementation("org.slf4j:log4j-over-slf4j") // Redirects Log4j 1.x to SLF4J
     implementation("org.slf4j:osgi-over-slf4j:2.1.0-alpha1") // Redirects OSGi LogService to SLF4J
 
-// Log4j2 SLF4J implementation for routing SLF4J logs to Log4j2
+    // Log4j2 SLF4J implementation for routing SLF4J logs to Log4j2
     implementation("org.apache.logging.log4j:log4j-slf4j2-impl") // Finally, routes SLF4J logs to Log4j2
     implementation("org.apache.logging.log4j:log4j-slf4j-impl")
 
