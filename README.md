@@ -35,7 +35,7 @@ Environment Variables:
 
 - `APHRODITE_LOG_LEVEL` - Log level, default `INFO`
     - Also applies to Spring Boot `logging.level.{web,sql,root}`
-- `APHRODITE_LOG_DIR` - Log directory, default `./log/aphrodite`
+- `APHRODITE_LOG_DIR` - Log directory, default `./log`
 
 ## Deployment
 
