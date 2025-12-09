@@ -1,6 +1,6 @@
-# 1.0.0 (2025-12-09)
+## [1.0.2](https://github.com/arpanrec/aphrodite/compare/1.0.1...1.0.2) (2025-12-09)
 
 
 ### Bug Fixes
 
-* release ([48ef7cc](https://github.com/arpanrec/aphrodite/commit/48ef7cce4ee5abd619f7862d4b32097faa0f0abb))
+* release branch ([26073b1](https://github.com/arpanrec/aphrodite/commit/26073b1f45cd86b7cad9c0cd6f8a179da1f35ecb))
