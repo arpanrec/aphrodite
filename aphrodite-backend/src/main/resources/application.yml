@@ -1,0 +1,93 @@
+---
+server:
+    port: 8083
+spring:
+    application:
+        name: aphrodite
+    profiles:
+        active:
+            - default
+    #            - production
+    mvc:
+        servlet:
+            path: /aphrodite-web-api
+    devtools:
+        livereload:
+            enabled: true
+            port: 35729
+        restart:
+            enabled: true
+    datasource:
+        url: jdbc:sqlite:./db.sqlite
+        username:
+        password:
+        driver-class-name: org.sqlite.JDBC
+        hikari:
+            auto-commit: true
+            maximum-pool-size: 1
+            max-lifetime: 0
+    jpa:
+        generate-ddl: true
+        open-in-view: true
+        hibernate:
+            ddl-auto: validate
+        show-sql: false
+    flyway:
+        enabled: true
+        locations: classpath:db/migration
+        baseline-on-migrate: true
+
+springdoc:
+    swagger-ui:
+        path: /api-docs/swagger-ui
+        csrf:
+            enabled: false
+        disable-swagger-default-url: true
+        enabled: true
+        use-root-path: true
+        deep-linking: true
+        display-operation-id: true
+        show-common-extensions: true
+    enable-spring-security: true
+    api-docs:
+        enabled: true
+        path: /api-docs/openapi.json
+        version: openapi_3_0
+        groups:
+            enabled: true
+        resolve-schema-properties: true
+        resolve-extensions-properties: true
+    show-actuator: true
+    cache:
+        disabled: true
+    disable-i18n: true
+    enable-groovy: true
+    enable-hateoas: true
+    enable-javadoc: true
+    enable-default-api-docs: true
+    enable-data-rest: true
+    enable-extra-schemas: true
+    enable-kotlin: true
+    explicit-object-schema: true
+    pre-loading-enabled: true
+    model-and-view-allowed: true
+    use-arbitrary-schemas: false
+    remove-broken-reference-definitions: true
+    sort-converter:
+        enabled: true
+management:
+    appoptics:
+        metrics:
+            export:
+                enabled: true
+    endpoints:
+        web:
+            base-path: /actuator
+logging:
+    level:
+        web: ${APHRODITE_LOG_LEVEL:INFO}
+        root: ${APHRODITE_LOG_LEVEL:INFO}
+        sql: ${APHRODITE_LOG_LEVEL:INFO}
+aphrodite:
+    unlock-keys: []
+    root-passwords: {}

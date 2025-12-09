@@ -1,0 +1,10 @@
+title = "Gitleaks development"
+[extend]
+useDefault = true
+
+[allowlist]
+paths = [
+    "cryptpass/target/*",
+    "foo.*",
+    '''cryptpass/data/''',
+]

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" monitorInterval="0">
+    <Properties>
+        <Property name="log_source_application_groupid">com.arpanrec</Property>
+        <Property name="log_source_application_artifactid">aphrodite</Property>
+        <Property name="log_source_application_root_logger_name">
+            ${log_source_application_groupid}.${log_source_application_artifactid}
+        </Property>
+        <Property name="log_source_application_test_logger_name">
+            ${log_source_application_groupid}.${log_source_application_artifactid}.test
+        </Property>
+        <Property name="log_pattern_console">%date{ISO8601}{GMT+5:30}[%6level]-%location{.} -
+            %message%n%throwable{full}
+        </Property>
+        <Property name="log_pattern_archive_file">
+            %date{ISO8601}{GMT+5:30}-host[${hostName}]-pid[%pid]-logid[%u]-[%6level]-thread-id-priority-name[%threadId-%threadPriority-%threadName]-logger[%logger]-(%location)%n%highlight{%message%n%throwable{full}}
+        </Property>
+        <Property name="log_dir">${env:APHRODITE_LOG_DIR:-./log/aphrodite}</Property>
+    </Properties>
+    <Appenders>
+        <Console name="console-logger" target="SYSTEM_OUT">
+            <PatternLayout pattern="${log_pattern_console}"/>
+        </Console>
+        <RollingFile name="file-logger" append="true" immediateFlush="true"
+                     fileName="${log_dir}/app.log"
+                     filePattern="${log_dir}/%d{MM-dd-yyyy}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>${log_pattern_archive_file}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+        <RollingFile name="test-logger" append="true" immediateFlush="true"
+                     fileName="${log_dir}/test.log"
+                     filePattern="${log_dir}/%d{MM-dd-yyyy}/test-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>${log_pattern_archive_file}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+        <RollingFile name="trace-logger" append="true" immediateFlush="true"
+                     fileName="${log_dir}/deep.log"
+                     filePattern="${log_dir}/%d{MM-dd-yyyy}/deep-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>${log_pattern_archive_file}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+        <RollingFile name="error-logger" append="true" immediateFlush="true"
+                     fileName="${log_dir}/error.log"
+                     filePattern="${log_dir}/%d{MM-dd-yyyy}/error-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>${log_pattern_archive_file}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="${log_source_application_test_logger_name}" additivity="false" level="TRACE">
+            <AppenderRef ref="console-logger"/>
+            <AppenderRef ref="trace-logger" level="TRACE"/>
+            <AppenderRef ref="file-logger" level="INFO"/>
+            <AppenderRef ref="error-logger" level="ERROR"/>
+            <AppenderRef ref="test-logger" level="TRACE"/>
+        </Logger>
+        <Logger name="${log_source_application_root_logger_name}" additivity="false"
+                level="${env:APHRODITE_LOG_LEVEL:-INFO}">
+            <AppenderRef ref="console-logger"/>
+            <AppenderRef ref="file-logger" level="INFO"/>
+            <AppenderRef ref="trace-logger" level="TRACE"/>
+            <AppenderRef ref="error-logger" level="ERROR"/>
+        </Logger>
+        <!--        <Logger name="org.springframework" additivity="false" level="INFO">-->
+        <!--            <AppenderRef ref="console-logger"/>-->
+        <!--            <AppenderRef ref="file-logger" level="INFO"/>-->
+        <!--            <AppenderRef ref="error-logger" level="ERROR"/>-->
+        <!--        </Logger>-->
+        <Root level="${env:APHRODITE_LOG_LEVEL:-INFO}" additivity="false">
+            <AppenderRef ref="console-logger"/>
+            <AppenderRef ref="file-logger" level="INFO"/>
+            <AppenderRef ref="trace-logger" level="TRACE"/>
+            <AppenderRef ref="error-logger" level="ERROR"/>
+        </Root>
+    </Loggers>
+</Configuration>

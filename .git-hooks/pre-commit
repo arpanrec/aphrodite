@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -euo pipefail
+
+gitleaks detect --source . --verbose
+gitleaks protect --source . --staged --verbose 
+
+./gradlew spotlessCheck

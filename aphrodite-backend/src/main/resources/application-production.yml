@@ -1,0 +1,13 @@
+---
+spring:
+    devtools:
+        add-properties: false
+        remote:
+            restart:
+                enabled: false
+        restart:
+            enabled: false
+        livereload:
+            enabled: false
+    jpa:
+        show-sql: false

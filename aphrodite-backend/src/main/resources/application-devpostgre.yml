@@ -1,0 +1,40 @@
+---
+spring:
+    main:
+        lazy-initialization: true
+    datasource:
+        url: jdbc:postgresql://localhost:5432/aphrodite-db
+        username: aphrodite-db-user
+        password: aphrodite-db-password
+        driver-class-name: org.postgresql.Driver
+        hikari:
+            auto-commit: true
+            connection-timeout: 10000
+            idle-timeout: 30000
+            max-lifetime: 1800000
+            maximum-pool-size: 10
+            minimum-idle: 5
+            schema: aphrodite_s
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        generate-ddl: false
+        open-in-view: true
+        hibernate:
+            ddl-auto: validate
+        show-sql: false
+        properties:
+            hibernate:
+                hbm2ddl:
+                    auto: validate
+                default_schema: aphrodite_s
+    flyway:
+        enabled: true
+        default-schema: aphrodite_s
+        table: flyway_schema_history
+        locations: classpath:db/migration
+        create-schemas: true
+        schemas:
+            - aphrodite_s
+aphrodite:
+    unlock-keys: []
+    root-passwords: {}
