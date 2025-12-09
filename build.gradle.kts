@@ -2,7 +2,7 @@ import java.io.FileNotFoundException
 
 logging.captureStandardOutput(LogLevel.INFO)
 
-version = "1.0.3"
+version = "1.1.0"
 
 plugins {
     id("com.diffplug.spotless") version "8.1.0"
@@ -104,5 +104,23 @@ tasks.register("setVersion") {
             }
         propertiesFile.writeText(lines.joinToString("\n"))
         println("Version updated to $newVersion in build.gradle.kts")
+    }
+}
+
+tasks.named<Delete>("clean") {
+    delete(
+        project.fileTree(project.projectDir) {
+            include("**/*.log")
+        }
+    )
+
+    project.rootDir.walk().forEach { file ->
+        if (file.name.startsWith(".terraform")
+            || file.name == ".DS_Store"
+            || file.name.startsWith("foo")
+            || file.name.endsWith(".sqlite")
+        ) {
+            delete(file)
+        }
     }
 }

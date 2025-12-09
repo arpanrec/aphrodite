@@ -15,7 +15,7 @@
         <Property name="log_pattern_archive_file">
             %date{ISO8601}{GMT+5:30}-host[${hostName}]-pid[%pid]-logid[%u]-[%6level]-thread-id-priority-name[%threadId-%threadPriority-%threadName]-logger[%logger]-(%location)%n%highlight{%message%n%throwable{full}}
         </Property>
-        <Property name="log_dir">${env:APHRODITE_LOG_DIR:-./log/aphrodite}</Property>
+        <Property name="log_dir">${env:APHRODITE_LOG_DIR:-./log}</Property>
     </Properties>
     <Appenders>
         <Console name="console-logger" target="SYSTEM_OUT">
