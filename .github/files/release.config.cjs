@@ -27,15 +27,11 @@ module.exports = {
             '@semantic-release/exec',
             {
                 prepareCmd: [
-                    'rm -f .semantic-release-successCmd CHANGELOG.md',
                     './gradlew setVersion -PnewVersion=${nextRelease.version}',
                     './gradlew :aphrodite-backend:clean :aphrodite-backend:bootJar --stacktrace --info -x test',
-                ].join(' && '),
-                successCmd: [
                     './gradlew :aphrodite-backend:generateOpenApiDocs',
-                    './gradlew :aphrodite-backend:publish',
-                    'touch .semantic-release-successCmd',
                 ].join(' && '),
+                successCmd: ['./gradlew :aphrodite-backend:publish', 'touch .semantic-release-successCmd'].join(' && '),
             },
         ],
         [
