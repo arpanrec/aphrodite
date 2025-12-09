@@ -106,3 +106,21 @@ tasks.register("setVersion") {
         println("Version updated to $newVersion in build.gradle.kts")
     }
 }
+
+tasks.named<Delete>("clean") {
+    delete(
+        project.fileTree(project.projectDir) {
+            include("**/*.log")
+        }
+    )
+
+    project.rootDir.walk().forEach { file ->
+        if (file.name.startsWith(".terraform")
+            || file.name == ".DS_Store"
+            || file.name.startsWith("foo")
+            || file.name.endsWith(".sqlite")
+        ) {
+            delete(file)
+        }
+    }
+}
