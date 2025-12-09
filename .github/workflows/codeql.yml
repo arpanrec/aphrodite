@@ -24,7 +24,7 @@ jobs:
                     - language: actions
                       build-mode: none
                     - language: java-kotlin
-                      build-mode: autobuild
+                      build-mode: manual
                     - language: javascript-typescript
                       build-mode: none
         steps:
@@ -46,6 +46,13 @@ jobs:
               with:
                   distribution: "temurin"
                   java-version: 25
+
+            - name: Run manual build steps
+              if: matrix.build-mode == 'manual'
+              shell: bash
+              run: |
+                  chmod +x gradlew
+                   ./gradlew build
 
             - name: Initialize CodeQL
               uses: github/codeql-action/init@v4
