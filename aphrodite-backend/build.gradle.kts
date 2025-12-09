@@ -16,7 +16,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization") version "2.3.0-RC2"
     idea
     id("org.graalvm.buildtools.native") version "0.11.3"
-    id("org.jetbrains.kotlin.plugin.jpa") version "2.3.0-RC2"
+    id("org.jetbrains.kotlin.plugin.jpa") version "2.3.0-RC3"
     id("org.hibernate.orm") version "7.2.0.CR3"
     id("org.flywaydb.flyway") version "11.19.0"
     id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
