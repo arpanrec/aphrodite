@@ -69,6 +69,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
     }
+    implementation("org.springframework.boot:spring-boot-starter-data-jdbc") {
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+    }
+
     testImplementation("org.springframework.boot:spring-boot-starter-flyway-test") {
         exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
     }
