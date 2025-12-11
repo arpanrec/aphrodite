@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/arpanrec/aphrodite/compare/1.1.2...1.2.0) (2025-12-11)
+
+
+### Features
+
+* **api:** change key input from query param to path variable ([481614d](https://github.com/arpanrec/aphrodite/commit/481614d2df5eb57051ac2f66bf6188eb9eb3f146))
+
 ## [1.1.2](https://github.com/arpanrec/aphrodite/compare/1.1.1...1.1.2) (2025-12-11)
 
 

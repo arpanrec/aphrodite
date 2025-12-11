@@ -387,7 +387,7 @@
         }
       ]
     },
-    "/api/v1/key-value/data/{bucket}": {
+    "/api/v1/key-value/data/{bucket}/{key}": {
       "get": {
         "tags": [
           "KeyValueData"
@@ -396,12 +396,11 @@
         "parameters": [
           {
             "name": "key",
-            "in": "query",
+            "in": "path",
             "description": "Secret Key Path",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": ""
+              "type": "string"
             },
             "example": "app/config/db-password"
           },
@@ -456,12 +455,11 @@
         "parameters": [
           {
             "name": "key",
-            "in": "query",
+            "in": "path",
             "description": "Secret Key Path",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": ""
+              "type": "string"
             },
             "example": "app/config/db-password"
           },
@@ -526,12 +524,11 @@
         "parameters": [
           {
             "name": "key",
-            "in": "query",
+            "in": "path",
             "description": "Secret Key Path",
             "required": true,
             "schema": {
-              "type": "string",
-              "default": ""
+              "type": "string"
             },
             "example": "app/config/db-password"
           },
@@ -1313,21 +1310,20 @@
         }
       ]
     },
-    "/api/v1/key-value/metadata/{bucket}": {
+    "/api/v1/key-value/metadata/{bucket}/list-keys/{key}": {
       "get": {
         "tags": [
           "KeyValueMetadata"
         ],
-        "operationId": "getKeyValueMetaData",
+        "operationId": "listKeyValueKeys",
         "parameters": [
           {
             "name": "key",
-            "in": "query",
+            "in": "path",
             "description": "Secret Key Path",
-            "required": false,
+            "required": true,
             "schema": {
-              "type": "string",
-              "default": ""
+              "type": "string"
             },
             "example": "app/config/db-password"
           },
@@ -1346,7 +1342,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KeyValueMetaData"
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -1372,21 +1371,20 @@
         }
       ]
     },
-    "/api/v1/key-value/metadata/{bucket}/list-keys": {
+    "/api/v1/key-value/metadata/{bucket}/details/{key}": {
       "get": {
         "tags": [
           "KeyValueMetadata"
         ],
-        "operationId": "listKeyValueKeys",
+        "operationId": "getKeyValueMetaData",
         "parameters": [
           {
             "name": "key",
-            "in": "query",
+            "in": "path",
             "description": "Secret Key Path",
-            "required": false,
+            "required": true,
             "schema": {
-              "type": "string",
-              "default": ""
+              "type": "string"
             },
             "example": "app/config/db-password"
           },
@@ -1405,10 +1403,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
+                  "$ref": "#/components/schemas/KeyValueMetaData"
                 }
               }
             }
