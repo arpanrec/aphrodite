@@ -65,6 +65,9 @@ public class KeyValueMetaDataApi {
     public List<String> listKeyValueKeys(@PathVariable String bucket, @PathVariable String key) {
         AuthenticationImpl auth =
                 (AuthenticationImpl) SecurityContextHolder.getContext().getAuthentication();
+        if (key.startsWith("/")) {
+            key = key.substring(1);
+        }
         log.info("Listing secret {}", key);
         assert auth != null;
         return keyValueService.list(key, bucket, auth.getNamespace());
@@ -86,6 +89,9 @@ public class KeyValueMetaDataApi {
     public KeyValueService.KeyValueMetaData getKeyValueMetaData(@PathVariable String bucket, @PathVariable String key) {
         AuthenticationImpl auth =
                 (AuthenticationImpl) SecurityContextHolder.getContext().getAuthentication();
+        if (key.startsWith("/")) {
+            key = key.substring(1);
+        }
         log.info("Reading secret metadata {}", key);
         assert auth != null;
         return keyValueService.getMetaData(key, bucket, auth.getNamespace());

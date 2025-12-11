@@ -79,6 +79,9 @@ public class KeyValueDataApi {
             @RequestParam(name = "version", required = false, defaultValue = "0") int version) {
         AuthenticationImpl auth =
                 (AuthenticationImpl) SecurityContextHolder.getContext().getAuthentication();
+        if (key.startsWith("/")) {
+            key = key.substring(1);
+        }
         log.info("Reading secret {}", key);
         assert auth != null;
         return keyValueService.get(key, version, bucket, auth.getNamespace());
@@ -111,6 +114,9 @@ public class KeyValueDataApi {
             @RequestParam(name = "version", required = false, defaultValue = "0") int version) {
         AuthenticationImpl auth =
                 (AuthenticationImpl) SecurityContextHolder.getContext().getAuthentication();
+        if (key.startsWith("/")) {
+            key = key.substring(1);
+        }
         log.info("Writing secret: {}", key);
         assert auth != null;
         int versionCreated = keyValueService.save(key, body, version, bucket, auth.getNamespace());
@@ -143,6 +149,9 @@ public class KeyValueDataApi {
             @RequestParam(name = "version", required = false, defaultValue = "0") int version) {
         AuthenticationImpl auth =
                 (AuthenticationImpl) SecurityContextHolder.getContext().getAuthentication();
+        if (key.startsWith("/")) {
+            key = key.substring(1);
+        }
         log.info("Deleting secret: {}", key);
         assert auth != null;
         keyValueService.delete(key, version, bucket, auth.getNamespace());
