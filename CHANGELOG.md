@@ -1,3 +1,17 @@
+## [1.1.2](https://github.com/arpanrec/aphrodite/compare/1.1.1...1.1.2) (2025-12-11)
+
+
+### Bug Fixes
+
+* **services:** make `validateKey` static and improve key validation logic ([7c0a45b](https://github.com/arpanrec/aphrodite/commit/7c0a45b1c415a018abcd14f04e6839f1c571b86f))
+
+## [1.1.1](https://github.com/arpanrec/aphrodite/compare/1.1.0...1.1.1) (2025-12-10)
+
+
+### Bug Fixes
+
+* improve authentication failure logging and simplify namespace retrieval ([34bc0b8](https://github.com/arpanrec/aphrodite/commit/34bc0b8a26925f976c1f5943a36f7e87733c8135))
+
 # [1.1.0](https://github.com/arpanrec/aphrodite/compare/1.0.3...1.1.0) (2025-12-09)
 
 

@@ -98,18 +98,33 @@ public class AccessLog {
     private Map<String, String[]> params = new HashMap<>();
 
     public Optional<String> findHere(@NotNull String key) {
-        var fromHeaders = headers.get(key);
-        if (fromHeaders != null && !fromHeaders.isBlank()) {
-            return Optional.of(fromHeaders);
+        String foundKey = findKeyIgnoreCase(headers, key);
+        if (foundKey != null && !headers.get(foundKey).isBlank()) {
+            return Optional.of(headers.get(foundKey));
         }
-        var fromCookies = cookies.get(key);
-        if (fromCookies != null && !fromCookies.isBlank()) {
-            return Optional.of(fromCookies);
+
+        foundKey = findKeyIgnoreCase(cookies, key);
+        if (foundKey != null && !cookies.get(foundKey).isBlank()) {
+            return Optional.of(cookies.get(foundKey));
         }
-        var fromParams = params.get(key);
-        if (fromParams != null && fromParams.length > 0 && !fromParams[0].isBlank()) {
-            return Optional.of(fromParams[0]);
+
+        foundKey = findKeyIgnoreCase(params, key);
+        if (foundKey != null) {
+            String[] values = params.get(foundKey);
+            if (values != null && values.length > 0 && !values[0].isBlank()) {
+                return Optional.of(values[0]);
+            }
         }
+
         return Optional.empty();
+    }
+
+    private static String findKeyIgnoreCase(Map<String, ?> map, String target) {
+        for (String k : map.keySet()) {
+            if (k.equalsIgnoreCase(target)) {
+                return k;
+            }
+        }
+        return null;
     }
 }

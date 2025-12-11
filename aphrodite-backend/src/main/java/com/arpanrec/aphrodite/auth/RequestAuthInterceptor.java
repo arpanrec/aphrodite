@@ -18,7 +18,6 @@ as the name is changed.
 package com.arpanrec.aphrodite.auth;
 
 import com.arpanrec.aphrodite.ApplicationConstants;
-import com.arpanrec.aphrodite.exceptions.NameSpaceNotFoundException;
 import com.arpanrec.aphrodite.models.AccessLog;
 import com.arpanrec.aphrodite.services.AccessLogRepository;
 import com.arpanrec.aphrodite.services.NamespaceService;
@@ -68,11 +67,8 @@ public class RequestAuthInterceptor extends OncePerRequestFilter {
         AuthenticationImpl authentication = new AuthenticationImpl();
         String namespaceFromReq =
                 accessLog.findHere(ApplicationConstants.NAMESPACE_HEADER).orElse(null);
-        if (namespaceFromReq != null && !namespaceFromReq.isBlank()) {
-            authentication.setNamespace(nameSpaceService
-                    .getOptional(namespaceFromReq)
-                    .orElseThrow(() -> new NameSpaceNotFoundException("Namespace not found: " + namespaceFromReq)));
-        }
+        authentication.setNamespace(
+                nameSpaceService.getOptional(namespaceFromReq).orElse(null));
         authentication.setAccessLog(accessLog);
         Authentication authenticated = authenticationManager.authenticate(authentication);
         SecurityContextHolder.getContext().setAuthentication(authenticated);

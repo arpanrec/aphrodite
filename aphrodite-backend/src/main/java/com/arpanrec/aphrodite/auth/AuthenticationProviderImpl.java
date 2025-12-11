@@ -44,7 +44,8 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
         try {
             appAuthenticationImpl.loadAuthentication(apiKeyService);
         } catch (Exception e) {
-            log.trace("Failed to load authentication", e);
+            log.warn("Authentication failed: {}", e.getMessage());
+            log.debug("Failed to load authentication", e);
             appAuthenticationImpl.setAuthenticated(false);
             return appAuthenticationImpl;
         }
