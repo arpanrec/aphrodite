@@ -57,7 +57,7 @@ public class KeyValueDataApi {
             parameters = {
                 @Parameter(
                         name = "key",
-                        in = ParameterIn.QUERY,
+                        in = ParameterIn.PATH,
                         required = true,
                         description = "Secret Key Path",
                         example = "app/config/db-password"),
@@ -69,11 +69,13 @@ public class KeyValueDataApi {
                         example = "1")
             },
             security = {@SecurityRequirement(name = ApplicationConstants.OPENAPI_SECURITY_SCHEME_NAME)})
-    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping(
+            path = "/{*key}",
+            produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
     public Map<String, Object> readKeyValueData(
             @PathVariable String bucket,
-            @RequestParam(name = "key", defaultValue = "") String key,
+            @PathVariable String key,
             @RequestParam(name = "version", required = false, defaultValue = "0") int version) {
         AuthenticationImpl auth =
                 (AuthenticationImpl) SecurityContextHolder.getContext().getAuthentication();
@@ -86,7 +88,7 @@ public class KeyValueDataApi {
             parameters = {
                 @Parameter(
                         name = "key",
-                        in = ParameterIn.QUERY,
+                        in = ParameterIn.PATH,
                         required = true,
                         description = "Secret Key Path",
                         example = "app/config/db-password"),
@@ -98,12 +100,14 @@ public class KeyValueDataApi {
                         example = "1")
             },
             security = {@SecurityRequirement(name = ApplicationConstants.OPENAPI_SECURITY_SCHEME_NAME)})
-    @PutMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PutMapping(
+            path = "/{*key}",
+            consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
     public WriteKeyValueDataResponse writeKeyValueData(
             @RequestBody Map<String, Object> body,
             @PathVariable String bucket,
-            @RequestParam(name = "key", defaultValue = "") String key,
+            @PathVariable String key,
             @RequestParam(name = "version", required = false, defaultValue = "0") int version) {
         AuthenticationImpl auth =
                 (AuthenticationImpl) SecurityContextHolder.getContext().getAuthentication();
@@ -119,7 +123,7 @@ public class KeyValueDataApi {
             parameters = {
                 @Parameter(
                         name = "key",
-                        in = ParameterIn.QUERY,
+                        in = ParameterIn.PATH,
                         required = true,
                         description = "Secret Key Path",
                         example = "app/config/db-password"),
@@ -131,11 +135,11 @@ public class KeyValueDataApi {
                         example = "1")
             },
             security = {@SecurityRequirement(name = ApplicationConstants.OPENAPI_SECURITY_SCHEME_NAME)})
-    @DeleteMapping
+    @DeleteMapping(path = "/{*key}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteKeyValueData(
-            @PathVariable(name = "bucket") String bucket,
-            @RequestParam(name = "key", defaultValue = "") String key,
+            @PathVariable String bucket,
+            @PathVariable String key,
             @RequestParam(name = "version", required = false, defaultValue = "0") int version) {
         AuthenticationImpl auth =
                 (AuthenticationImpl) SecurityContextHolder.getContext().getAuthentication();

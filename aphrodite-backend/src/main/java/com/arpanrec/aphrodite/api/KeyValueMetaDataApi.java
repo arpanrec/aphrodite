@@ -34,7 +34,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,17 +53,16 @@ public class KeyValueMetaDataApi {
             parameters = {
                 @Parameter(
                         name = "key",
-                        in = ParameterIn.QUERY,
+                        in = ParameterIn.PATH,
                         description = "Secret Key Path",
                         example = "app/config/db-password"),
             },
             security = {@SecurityRequirement(name = ApplicationConstants.OPENAPI_SECURITY_SCHEME_NAME)})
     @GetMapping(
-            path = "/list-keys",
+            path = "/list-keys/{*key}",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public List<String> listKeyValueKeys(
-            @PathVariable(name = "bucket") String bucket, @RequestParam(name = "key", defaultValue = "") String key) {
+    public List<String> listKeyValueKeys(@PathVariable String bucket, @PathVariable String key) {
         AuthenticationImpl auth =
                 (AuthenticationImpl) SecurityContextHolder.getContext().getAuthentication();
         log.info("Listing secret {}", key);
@@ -76,17 +74,16 @@ public class KeyValueMetaDataApi {
             parameters = {
                 @Parameter(
                         name = "key",
-                        in = ParameterIn.QUERY,
+                        in = ParameterIn.PATH,
                         description = "Secret Key Path",
                         example = "app/config/db-password"),
             },
             security = {@SecurityRequirement(name = ApplicationConstants.OPENAPI_SECURITY_SCHEME_NAME)})
     @GetMapping(
-            path = "",
+            path = "/details/{*key}",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public KeyValueService.KeyValueMetaData getKeyValueMetaData(
-            @PathVariable(name = "bucket") String bucket, @RequestParam(name = "key", defaultValue = "") String key) {
+    public KeyValueService.KeyValueMetaData getKeyValueMetaData(@PathVariable String bucket, @PathVariable String key) {
         AuthenticationImpl auth =
                 (AuthenticationImpl) SecurityContextHolder.getContext().getAuthentication();
         log.info("Reading secret metadata {}", key);
