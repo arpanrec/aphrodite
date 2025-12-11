@@ -23,7 +23,7 @@ plugins {
 
     id("org.graalvm.buildtools.native") version "0.11.3"
 
-    id("org.hibernate.orm") version "7.2.0.CR3"
+    id("org.hibernate.orm") version "7.2.0.CR4"
     id("org.flywaydb.flyway") version "11.19.0"
 }
 
