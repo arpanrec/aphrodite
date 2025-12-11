@@ -169,7 +169,7 @@ public class KeyValueService {
 
     public record KeyValueMetaData(Long lastCreatedAt, Long firstCreatedAt, List<Integer> versions) {}
 
-    private void validateKey(String key) {
+    public static void validateKey(String key) {
         if (key == null || key.isBlank()) {
             throw new BadClient("Key cannot be null or blank");
         }
@@ -178,17 +178,17 @@ public class KeyValueService {
             throw new BadClient("Key cannot start or end with a slash");
         }
 
-        for (int code : key.toCharArray()) {
-            boolean allowed = code == 47
-                    || (code >= 48 && code <= 57)
-                    || (code >= 65 && code <= 90)
-                    || (code >= 97 && code <= 122)
-                    || code == 95
-                    || code == 45;
+        for (var code : key.toCharArray()) {
+            boolean allowed = code == 47 // '/'
+                    || (code >= 48 && code <= 57) // '0-9'
+                    || (code >= 65 && code <= 90) // 'A-Z'
+                    || (code >= 97 && code <= 122) // 'a-z'
+                    || code == 95 // '_'
+                    || code == 45; // '-'
 
             if (!allowed) {
-                throw new BadClient("Invalid character '" + code + ", Char: " + (char) code
-                        + "' in key. Allowed: /, 0-9, A-Z, a-z, _, -");
+                throw new BadClient(
+                        "Invalid character '" + code + ", Char: " + code + "' in key. Allowed: /, 0-9, A-Z, a-z, _, -");
             }
         }
     }
