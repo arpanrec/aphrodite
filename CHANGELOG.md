@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/arpanrec/aphrodite/compare/1.2.0...1.2.1) (2025-12-11)
+
+
+### Bug Fixes
+
+* **api:** handle leading slashes in key inputs consistently ([df1fd1b](https://github.com/arpanrec/aphrodite/commit/df1fd1b31e6a931452bc9933973083f9259616b3))
+* **api:** handle leading slashes in key inputs consistently ([cbbb5e5](https://github.com/arpanrec/aphrodite/commit/cbbb5e52d019f906be850b46c51ba5239b8e58dc))
+
 # [1.2.0](https://github.com/arpanrec/aphrodite/compare/1.1.2...1.2.0) (2025-12-11)
 
 
