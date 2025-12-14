@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -82,6 +83,26 @@ public class BucketsApi {
         return new ResponseEntity<>(bucket, HttpStatus.CREATED);
     }
 
+    public record BucketUpdateRequest(@NotNull String name) {}
+
+    @Operation(
+            summary = "Update a bucket in the current namespace",
+            security = {@SecurityRequirement(name = ApplicationConstants.OPENAPI_SECURITY_SCHEME_NAME)})
+    @PutMapping(
+            path = "/{bucketName}",
+            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<@NotNull Bucket> updateBucket(
+            @PathVariable String bucketName, @RequestBody BucketUpdateRequest request) {
+        @NotNull
+        AuthenticationImpl auth = (AuthenticationImpl)
+                Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication());
+        log.info("Updating bucket: {}", bucketName);
+        Bucket bucket = bucketsService.updateName(bucketName, request.name, auth.getNamespace());
+        return new ResponseEntity<>(bucket, HttpStatus.OK);
+    }
+
     @Operation(
             summary = "Delete an existing bucket name in the current namespace",
             security = {@SecurityRequirement(name = ApplicationConstants.OPENAPI_SECURITY_SCHEME_NAME)})
@@ -90,7 +111,7 @@ public class BucketsApi {
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<@NotNull Void> deleteBucket(@PathVariable("bucketName") String bucketName) {
+    public ResponseEntity<@NotNull Void> deleteBucket(@PathVariable String bucketName) {
         AuthenticationImpl auth = (AuthenticationImpl)
                 Objects.requireNonNull(SecurityContextHolder.getContext().getAuthentication());
         log.info("Deleting bucket: {}", bucketName);

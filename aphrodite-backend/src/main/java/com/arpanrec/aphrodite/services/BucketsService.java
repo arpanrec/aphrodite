@@ -21,6 +21,7 @@ import com.arpanrec.aphrodite.exceptions.BucketNotFoundException;
 import com.arpanrec.aphrodite.exceptions.NameSpaceNotFoundException;
 import com.arpanrec.aphrodite.models.Bucket;
 import com.arpanrec.aphrodite.models.Namespace;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,5 +64,11 @@ public class BucketsService {
     public void delete(String existingName, Namespace namespace) {
         Bucket bucket = get(existingName, namespace);
         bucketsRepository.delete(bucket);
+    }
+
+    public Bucket updateName(String bucketName, @NotNull String name, Namespace namespace) {
+        Bucket bucket = get(bucketName, namespace);
+        bucket.setName(name);
+        return bucketsRepository.save(bucket);
     }
 }

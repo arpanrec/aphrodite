@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 set -euo pipefail
 
-gitleaks detect --source . --verbose
-gitleaks protect --source . --staged --verbose 
+gitleaks detect --config .gitleaks.toml --source . --verbose
+gitleaks protect --config .gitleaks.toml --source . --staged --verbose
 
 ./gradlew spotlessCheck
