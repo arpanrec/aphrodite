@@ -2,7 +2,7 @@ import java.io.FileNotFoundException
 
 logging.captureStandardOutput(LogLevel.INFO)
 
-version = "1.2.1"
+version = "1.3.0"
 
 plugins {
     id("com.diffplug.spotless") version "8.1.0"

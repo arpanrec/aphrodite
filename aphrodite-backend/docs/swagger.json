@@ -579,6 +579,92 @@
         }
       ]
     },
+    "/api/v1/buckets/{bucketName}": {
+      "put": {
+        "tags": [
+          "Buckets"
+        ],
+        "summary": "Update a bucket in the current namespace",
+        "operationId": "updateBucket",
+        "parameters": [
+          {
+            "name": "bucketName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BucketUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bucket"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Aphrodite-API-Key": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Buckets"
+        ],
+        "summary": "Delete an existing bucket name in the current namespace",
+        "operationId": "deleteBucket",
+        "parameters": [
+          {
+            "name": "bucketName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "security": [
+          {
+            "Aphrodite-API-Key": []
+          }
+        ]
+      },
+      "parameters": [
+        {
+          "name": "AphroditeNamespace",
+          "in": "header",
+          "description": "Namespace header for API requests",
+          "required": false,
+          "allowEmptyValue": true,
+          "schema": {
+            "type": "string",
+            "default": "aphrodite"
+          }
+        }
+      ]
+    },
     "/api/v1/token/refresh": {
       "post": {
         "tags": [
@@ -1508,48 +1594,6 @@
           }
         }
       }
-    },
-    "/api/v1/buckets/{bucketName}": {
-      "delete": {
-        "tags": [
-          "Buckets"
-        ],
-        "summary": "Delete an existing bucket name in the current namespace",
-        "operationId": "deleteBucket",
-        "parameters": [
-          {
-            "name": "bucketName",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "No Content"
-          }
-        },
-        "security": [
-          {
-            "Aphrodite-API-Key": []
-          }
-        ]
-      },
-      "parameters": [
-        {
-          "name": "AphroditeNamespace",
-          "in": "header",
-          "description": "Namespace header for API requests",
-          "required": false,
-          "allowEmptyValue": true,
-          "schema": {
-            "type": "string",
-            "default": "aphrodite"
-          }
-        }
-      ]
     }
   },
   "components": {
@@ -1715,6 +1759,29 @@
           }
         }
       },
+      "BucketUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Bucket": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
       "ApiKeyRefreshRequest": {
         "type": "object",
         "properties": {
@@ -1865,21 +1932,6 @@
         "properties": {
           "name": {
             "type": "string"
-          }
-        }
-      },
-      "Bucket": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "createdAt": {
-            "type": "integer",
-            "format": "int64"
           }
         }
       },

@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/arpanrec/aphrodite/compare/1.2.1...1.3.0) (2025-12-14)
+
+
+### Features
+
+* **api:** add `updateBucket` endpoint for bucket updates ([a2163d5](https://github.com/arpanrec/aphrodite/commit/a2163d51112e086458ac622985372f27b460c3dc))
+
 ## [1.2.1](https://github.com/arpanrec/aphrodite/compare/1.2.0...1.2.1) (2025-12-11)
 
 
