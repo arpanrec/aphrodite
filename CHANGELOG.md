@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/arpanrec/aphrodite/compare/1.3.0...1.3.1) (2025-12-16)
+
+
+### Bug Fixes
+
+* **api:** improve key validation and handling in `listKeyValueKeys` ([d9211f8](https://github.com/arpanrec/aphrodite/commit/d9211f865db5c4941851a67f28d098ffcd67138a))
+
 # [1.3.0](https://github.com/arpanrec/aphrodite/compare/1.2.1...1.3.0) (2025-12-14)
 
 
