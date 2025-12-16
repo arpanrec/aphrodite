@@ -119,8 +119,7 @@ public class KeyValueService {
     }
 
     public List<String> list(String key, Bucket bucket) {
-        validateKey(key);
-        log.trace("Listing keys for {}", key);
+        validateKeyForListing(key);
         if (key.isBlank()) {
             return keyValueRepository.findAllKeys(bucket);
         }
@@ -174,6 +173,10 @@ public class KeyValueService {
             throw new BadClient("Key cannot be null or blank");
         }
 
+        validateKeyForListing(key);
+    }
+
+    public static void validateKeyForListing(String key) {
         if (key.startsWith("/") || key.endsWith("/")) {
             throw new BadClient("Key cannot start or end with a slash");
         }

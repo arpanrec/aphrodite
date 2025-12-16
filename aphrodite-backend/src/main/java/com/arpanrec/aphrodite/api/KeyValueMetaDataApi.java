@@ -54,6 +54,7 @@ public class KeyValueMetaDataApi {
                 @Parameter(
                         name = "key",
                         in = ParameterIn.PATH,
+                        allowEmptyValue = true,
                         description = "Secret Key Path",
                         example = "app/config/db-password"),
             },
@@ -62,13 +63,12 @@ public class KeyValueMetaDataApi {
             path = "/list-keys/{*key}",
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.OK)
-    public List<String> listKeyValueKeys(@PathVariable String bucket, @PathVariable String key) {
+    public List<String> listKeyValueKeys(@PathVariable String bucket, @PathVariable(required = false) String key) {
         AuthenticationImpl auth =
                 (AuthenticationImpl) SecurityContextHolder.getContext().getAuthentication();
-        if (key.startsWith("/")) {
+        if (!key.isBlank() && key.startsWith("/")) {
             key = key.substring(1);
         }
-        log.info("Listing secret {}", key);
         assert auth != null;
         return keyValueService.list(key, bucket, auth.getNamespace());
     }
