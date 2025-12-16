@@ -17,7 +17,7 @@ plugins {
     id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
 
     id("org.jetbrains.kotlin.jvm") version "2.3.0-RC3"
-    id("org.jetbrains.kotlin.plugin.spring") version "2.3.0-RC3"
+    id("org.jetbrains.kotlin.plugin.spring") version "2.3.0"
     id("org.jetbrains.kotlin.plugin.serialization") version "2.3.0-RC3"
     id("org.jetbrains.kotlin.plugin.jpa") version "2.3.0-RC3"
 
