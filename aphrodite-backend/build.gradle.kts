@@ -18,7 +18,7 @@ plugins {
 
     id("org.jetbrains.kotlin.jvm") version "2.3.0-RC3"
     id("org.jetbrains.kotlin.plugin.spring") version "2.3.0-RC3"
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.3.0-RC3"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.3.0"
     id("org.jetbrains.kotlin.plugin.jpa") version "2.3.0-RC3"
 
     id("org.graalvm.buildtools.native") version "0.11.3"
