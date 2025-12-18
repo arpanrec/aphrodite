@@ -486,13 +486,11 @@
           }
         ],
         "requestBody": {
+          "description": "Key-value secret data",
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "additionalProperties": {
-                  "type": "object"
-                }
+                "type": "object"
               }
             }
           },
@@ -1839,10 +1837,10 @@
           "id": {
             "type": "string"
           },
-          "info": {
+          "operation": {
             "type": "string"
           },
-          "operation": {
+          "info": {
             "type": "string"
           },
           "who": {

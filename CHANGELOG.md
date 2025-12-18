@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/arpanrec/aphrodite/compare/1.3.1...1.4.0) (2025-12-18)
+
+
+### Features
+
+* **api:** enhance OpenAPI docs for `writeKeyValueData` endpoint ([cdfb2ca](https://github.com/arpanrec/aphrodite/commit/cdfb2ca5b28c439419084151db7e55bb4c2d8d4a))
+
 ## [1.3.1](https://github.com/arpanrec/aphrodite/compare/1.3.0...1.3.1) (2025-12-16)
 
 
