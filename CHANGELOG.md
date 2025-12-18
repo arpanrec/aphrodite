@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/arpanrec/aphrodite/compare/1.4.0...1.4.1) (2025-12-18)
+
+
+### Bug Fixes
+
+* **services:** correct version check and method call in KeyValueService ([dbba4f4](https://github.com/arpanrec/aphrodite/commit/dbba4f406f55fb187afa09f8a21040593fd275e7))
+
 # [1.4.0](https://github.com/arpanrec/aphrodite/compare/1.3.1...1.4.0) (2025-12-18)
 
 

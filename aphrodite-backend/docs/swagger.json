@@ -1837,10 +1837,10 @@
           "id": {
             "type": "string"
           },
-          "operation": {
+          "info": {
             "type": "string"
           },
-          "info": {
+          "operation": {
             "type": "string"
           },
           "who": {
