@@ -43,7 +43,7 @@ public interface KeyValueRepository extends JpaRepository<@NotNull KeyValue, @No
 
     @Modifying
     @Query("update key_value_t kv set kv.deleted = true where kv.key = ?1 and kv.bucket = ?2")
-    void setDeletedTrueAllVersion(String key, Bucket bucket);
+    void setDeletedTrueAllVersions(String key, Bucket bucket);
 
     @Modifying
     @Query("update key_value_t kv set kv.deleted = true where kv.key = ?1 and kv.version = ?2 and kv.bucket = ?3")

@@ -162,7 +162,7 @@ public class KeyValueDataApi {
         if (key.startsWith("/")) {
             key = key.substring(1);
         }
-        log.info("Deleting secret: {}", key);
+        log.info("Deleting secret: {}, version: {}", key, version);
         assert auth != null;
         keyValueService.delete(key, version, bucket, auth.getNamespace());
     }

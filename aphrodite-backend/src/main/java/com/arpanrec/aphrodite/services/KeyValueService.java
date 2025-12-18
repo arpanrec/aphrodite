@@ -135,7 +135,7 @@ public class KeyValueService {
     void delete(String key, int version, Bucket bucket) {
         validateKey(key);
         log.trace("Deleting version: {}, key: {}", version, key);
-        if (version == 0) {
+        if (version != 0) {
             keyValueRepository.setDeletedTrue(key, version, bucket);
         } else {
             markAllVersionForDelete(key, bucket);
@@ -146,7 +146,7 @@ public class KeyValueService {
     void markAllVersionForDelete(String key, Bucket bucket) {
         validateKey(key);
         log.trace("Deleting all versions of key: {}", key);
-        keyValueRepository.setDeletedTrueAllVersion(key, bucket);
+        keyValueRepository.setDeletedTrueAllVersions(key, bucket);
     }
 
     public KeyValueMetaData getMetaData(String key, String bucket, Namespace namespace) {
