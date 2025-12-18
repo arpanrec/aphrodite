@@ -23,6 +23,9 @@ import com.arpanrec.aphrodite.services.KeyValueService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.Map;
@@ -35,7 +38,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -100,15 +102,23 @@ public class KeyValueDataApi {
                         in = ParameterIn.QUERY,
                         description = "Secret Key Version",
                         allowEmptyValue = true,
-                        example = "1")
+                        example = "1"),
             },
+            requestBody =
+                    @RequestBody(
+                            required = true,
+                            description = "Key-value secret data",
+                            content =
+                                    @Content(
+                                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                            schema = @Schema(type = "object"))),
             security = {@SecurityRequirement(name = ApplicationConstants.OPENAPI_SECURITY_SCHEME_NAME)})
     @PutMapping(
             path = "/{*key}",
             consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
     public WriteKeyValueDataResponse writeKeyValueData(
-            @RequestBody Map<String, Object> body,
+            @org.springframework.web.bind.annotation.RequestBody Map<String, Object> body,
             @PathVariable String bucket,
             @PathVariable String key,
             @RequestParam(name = "version", required = false, defaultValue = "0") int version) {
