@@ -54,10 +54,10 @@ public class KeyValueService {
 
     public int getNextVersion(String key, Bucket bucket) {
         validateKey(key);
-        log.trace("Getting top version for key: {}", key);
+        log.debug("Getting top version for key: {}, bucket: {}", key, bucket.getName());
         Optional<Integer> currentKv = keyValueRepository.findTopVersion(key, bucket);
         int currentVal = currentKv.orElse(0);
-        log.trace("Top version for key: {} is: {}", key, currentVal);
+        log.debug("Top version for key: {}, bucket: {} is: {}", key, bucket.getName(), currentVal);
         return currentVal + 1;
     }
 
@@ -107,7 +107,7 @@ public class KeyValueService {
         if (version == 0) {
             version = getNextVersion(key, bucket);
         }
-        log.trace("Saving version: {}, key: {}, value: {}", version, key, encryptedValue);
+        log.info("Saving version: {}, key: {}, bucket: {}", version, key, bucket.getName());
         keyValue.setVersion(version);
         keyValue.setEncryptorHash(encryptionService.getEncryptorHash(bucket.getNamespace()));
         keyValue.setCreatedAt(Instant.now().toEpochMilli());
