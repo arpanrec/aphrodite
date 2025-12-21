@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/arpanrec/aphrodite/compare/1.4.1...1.4.2) (2025-12-21)
+
+
+### Bug Fixes
+
+* **api:** update `example` value for Secret Key Version to `0` ([04eacfb](https://github.com/arpanrec/aphrodite/commit/04eacfbdbf48565d950a9c6a10c51ad5ec79c8fe))
+
 ## [1.4.1](https://github.com/arpanrec/aphrodite/compare/1.4.0...1.4.1) (2025-12-18)
 
 

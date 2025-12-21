@@ -415,7 +415,7 @@
               "format": "int32",
               "default": 0
             },
-            "example": 1
+            "example": 0
           },
           {
             "name": "bucket",
@@ -474,7 +474,7 @@
               "format": "int32",
               "default": 0
             },
-            "example": 1
+            "example": 0
           },
           {
             "name": "bucket",
@@ -541,7 +541,7 @@
               "format": "int32",
               "default": 0
             },
-            "example": 1
+            "example": 0
           },
           {
             "name": "bucket",
