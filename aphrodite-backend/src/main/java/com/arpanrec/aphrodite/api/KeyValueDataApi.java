@@ -68,7 +68,7 @@ public class KeyValueDataApi {
                         in = ParameterIn.QUERY,
                         description = "Secret Key Version",
                         allowEmptyValue = true,
-                        example = "1")
+                        example = "0")
             },
             security = {@SecurityRequirement(name = ApplicationConstants.OPENAPI_SECURITY_SCHEME_NAME)})
     @GetMapping(
@@ -102,7 +102,7 @@ public class KeyValueDataApi {
                         in = ParameterIn.QUERY,
                         description = "Secret Key Version",
                         allowEmptyValue = true,
-                        example = "1"),
+                        example = "0"),
             },
             requestBody =
                     @RequestBody(
@@ -148,7 +148,7 @@ public class KeyValueDataApi {
                         in = ParameterIn.QUERY,
                         description = "Secret Key Version",
                         allowEmptyValue = true,
-                        example = "1")
+                        example = "0")
             },
             security = {@SecurityRequirement(name = ApplicationConstants.OPENAPI_SECURITY_SCHEME_NAME)})
     @DeleteMapping(path = "/{*key}")

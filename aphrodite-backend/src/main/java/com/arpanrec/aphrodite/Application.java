@@ -26,7 +26,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @SpringBootApplication
 public class Application {
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         System.setProperty("org.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH", "true");
 
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Kolkata"));
