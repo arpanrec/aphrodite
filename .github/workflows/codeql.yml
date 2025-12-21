@@ -1,0 +1,67 @@
+---
+name: "CodeQL Advanced"
+
+on:
+    push:
+    pull_request:
+    schedule:
+        - cron: "43 16 * * 2"
+
+jobs:
+    analyze:
+        name: Analyze (${{ matrix.language }})
+        runs-on: ubuntu-latest
+        permissions:
+            security-events: write
+            packages: read
+            actions: read
+            contents: read
+
+        strategy:
+            fail-fast: false
+            matrix:
+                include:
+                    - language: actions
+                      build-mode: none
+                    - language: java-kotlin
+                      build-mode: manual
+                    - language: javascript-typescript
+                      build-mode: none
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+            - name: Cache Gradle packages
+              uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+              with:
+                  path: |
+                      ~/.gradle/caches
+                      ~/.gradle/wrapper
+                  key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+                  restore-keys: |
+                      ${{ runner.os }}-gradle-
+
+            - name: Setup Java
+              uses: actions/setup-java@f2beeb24e141e01a676f977032f5a29d81c9e27e # v5.1.0
+              with:
+                  distribution: "temurin"
+                  java-version: 25
+
+            - name: Run manual build steps
+              if: matrix.build-mode == 'manual'
+              shell: bash
+              run: |
+                  chmod +x gradlew
+                   ./gradlew :aphrodite-backend:build :aphrodite-backend:bootJar -x test
+
+            - name: Initialize CodeQL
+              uses: github/codeql-action/init@7434149006143a4d75b82a2f411ef15b03ccc2d7 # v4.31.7
+              with:
+                  languages: ${{ matrix.language }}
+                  build-mode: ${{ matrix.build-mode }}
+                  source-root: aphrodite-backend
+
+            - name: Perform CodeQL Analysis
+              uses: github/codeql-action/analyze@7434149006143a4d75b82a2f411ef15b03ccc2d7 # v4.31.7
+              with:
+                  category: "/language:${{matrix.language}}"
